@@ -97,7 +97,7 @@ unique_mouse_cell_D1_D10 = intersect(D10_table.mouse_cell,unique_mouse_cell_D1_D
 
 data = {D1_table, D5_table, D10_table};
 %% get soma eye specific identities from D1 to D10 and create sandkey flow chart at http://sankeymatic.com
-all_counts = get_10day_soma_identity(data, unique_mouse_cell_D1_D10);
+all_counts = get_10day_soma_identity_contra_ipsi(data, unique_mouse_cell_D1_D10);
 %% get soma binoc response from D1 to D10 and create sandkey flow chart at http://sankeymatic.com
 all_counts = get_10day_soma_identity_both_eyes(data, unique_mouse_cell_D1_D10);
 %% Panel G: fraction of spines that match the soma's pref 
