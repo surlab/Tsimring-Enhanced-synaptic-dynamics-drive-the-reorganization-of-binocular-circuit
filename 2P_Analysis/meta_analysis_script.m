@@ -6,17 +6,10 @@
 
 %% Set path
 clear all
-%input_path = '/Volumes/Katya5/BinocularMatching/Spines/2P_Imaging';
 input_path = 'F:\Binocular_matching\Spine_imaging\2P_imaging\';
-%stim_path =  '/Volumes/Katya5/BinocularMatching/Spines/VIsual_stimulus';
-%stim_path =  '/Users/ktsimring/Dropbox (MIT)/Katya Tsimring/stim_events/Binocular Matching Katya';
-stim_path = 'C:\Users\Katya-PC\Dropbox (MIT)\Katya Tsimring\stim_events\Binocular Matching Katya\Spines';
-%output_path = fullfile('/Volumes', 'KATYA', 'Sur Lab', 'Results_soma_suite2p', 'ROIs');
+stim_path =  '/Users/ktsimring/Dropbox (MIT)/Katya Tsimring/stim_events/Binocular Matching Katya';
 path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/';
-%path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging';
-%distance_path = '/Users/ktsimring/Dropbox (MIT)/Sur Lab/Projects/Development project/Binocular Matching/Spine imaging/Chronic Imaging/FOV_alignment';
 distance_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';%distance_path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-%distance_path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
 %% 1) run analysis spine 2p data function
 disp('Running analysis spine 2p data function')
 mouse_files = {'BM014' ,'BM015', 'BM016', 'BM017', 'BM018', 'BM019', 'BM020', 'BM021', 'BM023','BM024', 'BM025', 'BM026', 'BM027','BM029', 'BM030'};
@@ -35,10 +28,7 @@ analyzed_processed_data_function(path, savefile, mouse_files)
 %% 3) run identify visual responses
 disp('Running identify vis responses function')
 analyzefile =  'all_analyzed_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_zscored_trace_active_trials.mat';
-%analyzefile =  'all_analyzed_spines_BM021_zscored_trace.mat';
-
 savefile = 'visually_responsive_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria.mat';
-%savefile = 'visually_responsive_spines_BM021_lax_criteria.mat';
 mean_amp_thresh = 0.5;
 p_val_thresh = 0.05;
 identify_vis_responses(path,analyzefile, savefile, mean_amp_thresh,p_val_thresh);
@@ -54,12 +44,6 @@ savepath = fullfile(path, 'Analyzed Data');
 load(fullfile(savepath,analyzefile));
 load(fullfile(savepath,visfile));
 create_table_of_all3sessions_function(savepath, distance_path, all_stims, all_vis_stims, savefile_mat, savefile_csv);
-% %% 4) run create table for all 3 sessions per soma
-% savefile = 'spine_gof_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials';
-% savepath = fullfile(path, 'Analyzed Data');
-% %load(fullfile(savepath,analyzefile));
-% %load(fullfile(savepath,visfile));
-% create_soma_table
 
 %% 5) run create table tracked spines
 disp('Running create table tracked spines')
