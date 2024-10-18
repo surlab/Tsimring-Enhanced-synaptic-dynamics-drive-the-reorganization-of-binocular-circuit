@@ -39,9 +39,9 @@ for trial= 1:ntrials
         test_zVM = [saving_zVM{1}(timepoint, :); saving_zVM{2}(timepoint, :)];
 
          % test viewing
-        [ipsi_left,ipsi_right,soma_ipsi] = test(1,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Ipsi viewing
-        [contra_left,contra_right,soma_contra] = test(2,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Contra viewing
-        [bino_left,bino_right,soma_bino] = test(3,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Binocular viewing
+        [ipsi_left,ipsi_right,soma_ipsi] = testing(1,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Ipsi viewing
+        [contra_left,contra_right,soma_contra] = testing(2,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Contra viewing
+        [bino_left,bino_right,soma_bino] = testing(3,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Binocular viewing
 
         % Normalize the firing rates
         fr_abs = [soma_ipsi; soma_contra; soma_bino];
@@ -148,13 +148,3 @@ axis square
 box off
 legend('Before plasticity', 'After plasticity')
 % savefig(fig2,'corrs_vs_dists.fig')
-
-
-function ori_pref = preferred_orientation(lin_angles, firing_rates)
-    oris_rad = (lin_angles'.*pi)./180; % column vector
-    num_oris = length(oris_rad)/2;
-    fr_half = (firing_rates(:,1:num_oris) + firing_rates(:,num_oris+1:end))/2;
-    oris_rad_half = oris_rad(1:num_oris); % oris_rad_half = oris_rad(num_oris+1:end);
-    R_ori = fr_half*exp(oris_rad_half*2*1i);
-    ori_pref = mod(atan2(imag(R_ori),real(R_ori)),2*pi)*(90/pi);
-end
