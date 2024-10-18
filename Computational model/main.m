@@ -10,11 +10,12 @@ clear all
 close all
 clc
 %% Parameters
+ntrials = 20;
 sigma_het = 1.5; % Spatial postsynaptic accumulator spread constant
 sigma_heb = 15; % Spatial somatic accumulator spread constant
 % Time parameters
 dt = 1; % Time step (1 ms)
-T = 1.8e+7; % Total time in ms
+T = 1.8e+8; % Total time in ms
 keep_angle = 250; 
 T1 = 0:keep_angle:T; 
 T1(1) = 1;
@@ -45,6 +46,7 @@ rho = -0.13; % potentiation vs. depression threshold
 A_thexp = 0.9; % decay constant for somatic accumulator threshold
 pturnover = 0.5; % Probability that a new spine is formed
 
+for trial = 1:ntrials
 %% Initialization 
 A = zeros(T,1); % somatic accumulator over time
 A_branch = zeros(1,n_branch); % somatic accumulator on each branch
@@ -210,9 +212,9 @@ for tt = 2:T
             ampVM{branch}(time_ind+1,idx_added) = amp_min + (amp_max-amp_min)*rand(1,sum(sum(turnover)));
             zVM{branch}(time_ind+1,idx_added) = z_min + (z_max-z_min)*rand(1,sum(sum(turnover)));
             W{branch}(tt,idx_added) = 1.5*wmin;
-            eye_pref{branch}(tt,:) = spine_pref{branch}(1,:);
-            angle_pref{branch}(tt,:) = spine_pref{branch}(2,:);
         end
+        eye_pref{branch}(tt,:) = spine_pref{branch}(1,:);
+        angle_pref{branch}(tt,:) = spine_pref{branch}(2,:);
     end
     % bAP 
     A(tt) = sum(A_branch);
@@ -253,17 +255,19 @@ saving_eye = cell(1, n_branch);
 saving_angles = cell(1, n_branch);
 saving_PRE = cell(1, n_branch);
 saving_POST = cell(1, n_branch);
-saving_pos = pos;
-saving_dMat = dMat;
-saving_dSoma = dSoma;   
-saving_A_th = A_th(time_indices1);
 for branch = 1:n_branch
-    saving_fr{branch} = r{branch}(time_indices2, :);
     saving_W{branch} = W{branch}(time_indices1, :);
+    saving_ampVM{branch} = ampVM{branch}(time_indices2, :);
+    saving_zVM{branch} = zVM{branch}(time_indices2, :);
+    saving_fr{branch} = r{branch}(time_indices2, :);
+    saving_eye{branch} = eye_pref{branch}(time_indices1, :);
+    saving_angles{branch} = angle_pref{branch}(time_indices1, :);    
     saving_PRE{branch} = PRE{branch}(time_indices1, :);
     saving_POST{branch} = POST{branch}(time_indices1, :);
-    saving_zVM{branch} = zVM{branch}(time_indices2, :);
-    saving_ampVM{branch} = ampVM{branch}(time_indices2, :);
-    saving_eye{branch} = eye_pref{branch}(time_indices1, :);
-    saving_angles{branch} = angle_pref{branch}(time_indices1, :);
+end
+save(['main' num2str(trial) '.mat'], ... 
+     'saving_W', 'saving_ampVM', 'saving_zVM', 'saving_fr', 'saving_eye', 'saving_angles', ...
+     'saving_PRE', 'saving_POST', 'pos', 'dMat', 'dSoma', 'A_th',...
+     'added_times', 'lost_times','surv_times', 'stored_ampVM', 'stored_zVM', 'stored_fr', ...
+     'stored_prefangle', 'stored_prefeye', 'stored_POST', 'stored_PRE', 'randVM');
 end
