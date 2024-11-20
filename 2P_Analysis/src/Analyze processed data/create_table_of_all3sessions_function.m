@@ -2,10 +2,7 @@
 % update 9/28/2023 to account for resizing distances, and corrected soma to
 % update 02/03/2024 to account for spine size
 % spine alignment
-function create_table_of_all3sessions_function(savepath, distance_path, all_stims, all_vis_stims, savefile_mat, savefile_csv)
-dendritic_path = fullfile(savepath,'Dendritic_type.csv');
-distance_path = fullfile(distance_path, 'FOV_alignment');
-
+function create_table_of_all3sessions_function(savepath, input_path, all_stims, all_vis_stims, savefile)
 %% separate 3 sessions into table format
 stim_binoc = all_stims(strcmp({all_stims.name},'binoc')==1);
 stim_contra = all_stims(strcmp({all_stims.name}, 'contra')==1);
@@ -13,13 +10,6 @@ stim_ipsi = all_stims(strcmp({all_stims.name}, 'ipsi')==1);
 stim_binoc = rmfield(stim_binoc,'name');
 stim_ipsi = rmfield(stim_ipsi,'name');
 stim_contra = rmfield(stim_contra, 'name');
-stim_binoc = rmfield(stim_binoc,'all_mean_Z_day');
-stim_ipsi = rmfield(stim_ipsi,'all_mean_Z_day');
-stim_contra = rmfield(stim_contra, 'all_mean_Z_day');
-
-stim_binoc = rmfield(stim_binoc,'all_Ori_vonMises');
-stim_ipsi = rmfield(stim_ipsi,'all_Ori_vonMises');
-stim_contra = rmfield(stim_contra, 'all_Ori_vonMises');
 
 vis_stim_binoc = all_vis_stims(strcmp({all_vis_stims.session},'binoc')==1);
 vis_stim_contra = all_vis_stims(strcmp({all_vis_stims.session}, 'contra')==1);
@@ -62,7 +52,7 @@ stim_table_dend_ipsi = removevars(stim_table_dend_ipsi, 'all_cells');
 
 %% separate somas 
 % binoc
-soma_binoc = combine_stim_binoc(contains(combine_stim_binoc.all_fovs,'Soma_0'),:);
+soma_binoc = combine_stim_binoc(contains(combine_stim_binoc.all_fovs,'Soma'),:);
 soma_binoc.mouse_cell = strcat(soma_binoc.all_mouse, '-', soma_binoc.all_cells);
 soma_binoc = removevars(soma_binoc, 'all_mouse');
 soma_binoc = removevars(soma_binoc, 'all_cells');
@@ -70,14 +60,14 @@ soma_binoc = removevars(soma_binoc, 'all_cells');
 soma_binoc = soma_binoc(soma_binoc.all_roi_inds==1,:);
 
 % contra
-soma_contra = combine_stim_contra(contains(combine_stim_contra.all_fovs,'Soma_0'),:);
+soma_contra = combine_stim_contra(contains(combine_stim_contra.all_fovs,'Soma'),:);
 soma_contra.mouse_cell = strcat(soma_contra.all_mouse, '-', soma_contra.all_cells);
 soma_contra = removevars(soma_contra, 'all_mouse');
 soma_contra = removevars(soma_contra, 'all_cells');
 soma_contra = soma_contra(soma_contra.all_roi_inds==1,:);
 
 % ipsi
-soma_ipsi = combine_stim_ipsi(contains(combine_stim_ipsi.all_fovs,'Soma_0'),:);
+soma_ipsi = combine_stim_ipsi(contains(combine_stim_ipsi.all_fovs,'Soma'),:);
 soma_ipsi.mouse_cell = strcat(soma_ipsi.all_mouse, '-', soma_ipsi.all_cells);
 soma_ipsi = removevars(soma_ipsi, 'all_mouse');
 soma_ipsi = removevars(soma_ipsi, 'all_cells');
@@ -100,23 +90,19 @@ soma_spine_contra.session = repmat({"contra"}, height(soma_spine_contra),1);
 soma_spine_ipsi.session = repmat({"ipsi"}, height(soma_spine_ipsi),1);
 
 %% Retrieve alignment to neighboring spines 
-soma_spine_contra = retrieve_neighbor_spine_alignment(distance_path,soma_spine_contra);
-soma_spine_ipsi = retrieve_neighbor_spine_alignment(distance_path,soma_spine_ipsi);
-soma_spine_binoc = retrieve_neighbor_spine_alignment(distance_path,soma_spine_binoc);
+soma_spine_contra = retrieve_neighbor_spine_alignment(input_path,soma_spine_contra);
+soma_spine_ipsi = retrieve_neighbor_spine_alignment(input_path,soma_spine_ipsi);
+soma_spine_binoc = retrieve_neighbor_spine_alignment(input_path,soma_spine_binoc);
 
 %% Retrieve mean alignment to neighboring spines within 10 um
-soma_spine_contra = retrieve_mean_neighbor_spine_alignment(distance_path,soma_spine_contra,5);
-soma_spine_ipsi = retrieve_mean_neighbor_spine_alignment(distance_path,soma_spine_ipsi,5);
-soma_spine_binoc = retrieve_mean_neighbor_spine_alignment(distance_path,soma_spine_binoc,5);
+soma_spine_contra = retrieve_mean_neighbor_spine_alignment(input_path,soma_spine_contra,5);
+soma_spine_ipsi = retrieve_mean_neighbor_spine_alignment(input_path,soma_spine_ipsi,5);
+soma_spine_binoc = retrieve_mean_neighbor_spine_alignment(input_path,soma_spine_binoc,5);
 
 %% Orientation preference is based on direction of movement --> switch to orientation
 all_stim_table = [soma_spine_contra;soma_spine_ipsi;soma_spine_binoc];
 all_day = all_stim_table.all_day;
-split_all_day = cellfun(@(x) split(x,'_'), all_day, 'UniformOutput',false);
-days = cellfun(@(x) x(1,:), split_all_day);
-
-days = cellfun(@(x) which_day(x), days, UniformOutput=false);
-all_stim_table.days = days;
+all_stim_table.days = all_day;
 
 %vector
 Oris = all_stim_table.all_Ori_pref_vector;
@@ -124,19 +110,13 @@ Oris = Oris-90;
 Oris(Oris<0) = Oris(Oris<0)+180; 
 all_stim_table.all_Ori_pref_vector = Oris;
 
-spine_save_mat = ['spine_',savefile_mat];
-spine_save_csv = ['spine_',savefile_csv];
+spine_save_mat = ['spine_',savefile];
 save(fullfile(savepath, spine_save_mat), "all_stim_table");
-writetable(all_stim_table,fullfile(savepath, spine_save_csv));
 
 %% Orientation preference is based on direction of movement --> switch to orientation
 all_soma_stim_table = [soma_contra;soma_ipsi;soma_binoc];
 all_day = all_soma_stim_table.all_day;
-split_all_day = cellfun(@(x) split(x,'_'), all_day, 'UniformOutput',false);
-days = cellfun(@(x) x(1,:), split_all_day);
-
-days = cellfun(@(x) which_day(x), days, UniformOutput=false);
-all_soma_stim_table.days = days;
+all_soma_stim_table.days = all_day;
 
 %vector
 Oris = all_stim_table.all_Ori_pref_vector;
@@ -145,10 +125,8 @@ Oris(Oris<0) = Oris(Oris<0)+180;
 all_stim_table.all_Ori_pref_vector = Oris;
 
 
-soma_save_mat = ['soma_',savefile_mat];
-soma_save_csv = ['soma_',savefile_csv];
+soma_save_mat = ['soma_',savefile];
 save(fullfile(savepath, soma_save_mat), 'all_soma_stim_table');
-writetable(all_soma_stim_table,fullfile(savepath, soma_save_csv));
 
 
 %%
@@ -164,8 +142,6 @@ end
 %% retrieve soma-spine alignment 
 function table_dend = retrieve_soma_spine_alignment(table_dend,table_soma)
 
-    soma_DSI_vonMises = [];
-    soma_OSI_vonMises = [];
     soma_ori_pref_vector = [];
     soma_dir_pref_vector = [];
     soma_DSI_vector = [];
@@ -175,9 +151,7 @@ function table_dend = retrieve_soma_spine_alignment(table_dend,table_soma)
 
 
     ori_alignment_vector = [];
-    ori_alignment_vonMises = [];
     dir_alignment_vector = [];
-    dir_alignment_vonMises = [];
     dir_corr = [];
     soma_vis = [];
     for i = 1:height(table_dend)
@@ -265,9 +239,7 @@ function table_dend = retrieve_neighbor_spine_alignment(distance_path,table_dend
     
     for i = 1:height(table_dend)
         disp(i)
-        if i == 194
-            k = 1;
-        end
+        
         is_blinded = 0;
          
         spine = table_dend(i, :);
@@ -276,9 +248,7 @@ function table_dend = retrieve_neighbor_spine_alignment(distance_path,table_dend
         roi = spine.all_roi_inds;
         day = spine.all_day{:};
         mouse_cell = spine.mouse_cell;
-        if contains(mouse_cell, 'BM029') 
-            k = 1;
-        end
+        
 
         split_mouse_cell = split(mouse_cell, '-');
         mouse = split_mouse_cell{1};
@@ -307,15 +277,15 @@ function table_dend = retrieve_neighbor_spine_alignment(distance_path,table_dend
                
          end
 
-        stats_file = fullfile(distance_path, mouse, cells, day, ...
-            dend, 'dendritic_distance', 'spine_stats.csv');
-        distance_file = fullfile(distance_path, mouse, cells, day, ...
-            dend, 'dendritic_distance', 'dendritic_distance.csv');
+        stats_file = fullfile(distance_path, mouse, day,cells,  ...
+            dend, 'spine_stats.csv');
+        distance_file = fullfile(distance_path, mouse, day,cells,  ...
+            dend, 'dendritic_distance.csv');
         if exist(stats_file,"file") & ~isnan(roi)
             stats = readtable(stats_file);
             distances = table2array(readtable(distance_file)).*0.606; %resize distances
             distances_by_seg = stats.source_file;
-            seg = ['RoiSet', num2str(str2num(split_dend{2})+1), '.zip'];
+            seg = ['RoiSet1.zip'];
             inds = find(contains(distances_by_seg,seg));
             filter_distances = distances(inds,inds);
             temp = [1:size(filter_distances,1)];
@@ -519,15 +489,15 @@ function table_dend = retrieve_mean_neighbor_spine_alignment(distance_path,table
                
          end
 
-        stats_file = fullfile(distance_path, mouse, cells, day, ...
-            dend, 'dendritic_distance', 'spine_stats.csv');
-        distance_file = fullfile(distance_path, mouse, cells, day, ...
-            dend, 'dendritic_distance', 'dendritic_distance.csv');
+        stats_file = fullfile(distance_path, mouse, day,cells,  ...
+            dend, 'spine_stats.csv');
+        distance_file = fullfile(distance_path, mouse, day,cells,  ...
+            dend, 'dendritic_distance.csv');
         if exist(stats_file,"file") & ~isnan(roi)
             stats = readtable(stats_file);
             distances = table2array(readtable(distance_file))*0.606 % kyle's conversion factor;
             distances_by_seg = stats.source_file;
-            seg = ['RoiSet', num2str(str2num(split_dend{2})+1), '.zip'];
+            seg = ['RoiSet1.zip'];
             inds = find(contains(distances_by_seg,seg));
             filter_distances = distances(inds,inds);
             temp = [1:size(filter_distances,1)];

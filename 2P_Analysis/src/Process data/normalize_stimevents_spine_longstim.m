@@ -506,15 +506,6 @@ end
 clear ii jj kk  
 %Save Data in the current directory
 save(fullfile(files(1).folder, 'normalized_data_by_stim'));
-%Report number of responsive cells in the command window
-Responsive_mean=t_test<=0.05 & mean_amplitude>=0.5;
-Responsive_cells = max(Responsive_mean,[],3);
-Responsive_cells=sum(Responsive_cells,2);
-Responsive_cells(Responsive_cells>=1)=1;
-Responsive_cells=sum(Responsive_cells);
-Report=sprintf('There were %s responsive cells',num2str(Responsive_cells));
-disp(Report)
-clear Report Responsive_cells
 
 end
 end

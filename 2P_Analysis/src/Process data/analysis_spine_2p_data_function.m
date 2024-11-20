@@ -32,7 +32,6 @@ for m = 1:length(mouse_files)
                 sessions = dir(fullfile(input_path,mouse_files{m},Day,Cells(cc).name, stims(iii).name));
                 sessions=sessions(~contains({sessions.name}, '.'));
                 for s = 1:length(sessions)
-                    if ~exist(fullfile(sessions(s).folder, sessions(s).name, 'normalized_data_by_stim.mat'))
                     load(fullfile(sessions(s).folder, sessions(s).name, 'ROIdata.mat'))
                     ROIdata_scan = rois;
                      filename = sessions(s).name;
@@ -68,8 +67,8 @@ for m = 1:length(mouse_files)
                          else
                              normalize_stimevents_spine_longstim(timestamps,ROIdata_scan,graph,files,framelength)
                         end
-                        end
                     end
+                  
                 end
             end
             
@@ -77,7 +76,7 @@ for m = 1:length(mouse_files)
    end
 end
 %%
-Analyze OSI and DSI for each FOV stim 
+%Analyze OSI and DSI for each FOV stim 
 disp('Analyze vector based tuning properties');
 for m = 1:length(mouse_files)
     disp(['Running mouse: ', mouse_files{m}])
