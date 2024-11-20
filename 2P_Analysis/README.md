@@ -10,8 +10,8 @@ All code can be run through "scripts/meta_analysis_script.m", which contains 5 s
 
 #### Setting directories/paths
 Before running the code, be sure to change the following paths to your home directory and location of code: 
-     homepath = '/Users/ktsimring/Documents/'; % change this path
-     path = '/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/2P_Analysis';
+- homepath = '/Users/ktsimring/Documents/';
+- path = '/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/2P_Analysis';
 
 
 #### Section 1
