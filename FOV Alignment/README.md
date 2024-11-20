@@ -29,9 +29,8 @@ While running the script, a display will show up asking if you want to check the
 1. If you hit [Y]: 
 
 -   A GUI will pop up with the two FOVs from the two timepoints and will run through each spine that was classified as missing (red spines in top image), retained (blue spines in both images), or added (green spines in bottom image)
-https://www.dropbox.com/s/d0hvd0yly8y37y7/Screen%20Shot%202024-11-20%20at%203.06.56%20AM.png?dl=0
+
 -   A M*2 (M = total number of retained, missing, added spines) editable table will also pop up with the classification for the spines identities for each timepoint (a spine that is missing or added will be noted as 0). You also can make any changes to the classifications, which will be saved under the updated "modify_mat" variable
-https://www.dropbox.com/s/efy1zp4w1z8umfj/Screen%20Shot%202024-11-20%20at%203.08.05%20AM.png?dl=0
 
 2. If you hit any other character, the GUI will exit
 
