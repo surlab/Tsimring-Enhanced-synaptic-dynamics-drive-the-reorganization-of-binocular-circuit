@@ -4,8 +4,15 @@ Analyzes the time-series flourescence data collected during two photon imaging w
 ## Installation Instructions
 Analysis run on MATLAB2021b, no specific software installation required besides downloading MATLAB (any version should suffice)
 ## Usage Instructions
+
 ### Overview
 All code can be run through "scripts/meta_analysis_script.m", which contains 5 sections of code:
+
+#### Setting directories/paths
+Before running the code, be sure to change the following paths to your home directory and location of code: 
+    %% homepath = '/Users/ktsimring/Documents/'; % change this path
+    %% path = '/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/2P_Analysis';
+
 
 #### Section 1
  first section runs the code for "analysis_spine_2p_data_function.m", where for each FOV and viewing condition, it extracts and z-scores the flourescent values from each ROI (spine or soma), aligns the timestamps to the visual stimulus, calculates the meam and standard dev of traces aligned to the unique stimuli, and analyzes the ROI's tuning properties
