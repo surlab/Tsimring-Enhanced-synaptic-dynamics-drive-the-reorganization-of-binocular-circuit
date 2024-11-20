@@ -6,19 +6,20 @@
 
 %% Set path
 clear all
-input_path = 'F:\Binocular_matching\Spine_imaging\2P_imaging\';
-stim_path =  '/Users/ktsimring/Dropbox (MIT)/Katya Tsimring/stim_events/Binocular Matching Katya';
-path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/';
-distance_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';%distance_path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
+path = '/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/2P_Analysis';
+addpath(genpath(path))
+distance_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
+
 %% 1) run analysis spine 2p data function
 disp('Running analysis spine 2p data function')
 mouse_files = {'Mouse'};
+input_path = fullfile(path, 'demo_data', '2P_data')
 analysis_spine_2p_data_function(input_path, mouse_files)
 
 %% 2) run analyze processed data function
 disp('Running analysis processed data function')
 mouse_files = {'Mouse'};
-
+input_path = '/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/2P_Analysis/output_files';
 savefile = 'all_analyzed_spines.mat';
 analyzed_processed_data_function(path, savefile, mouse_files)
 

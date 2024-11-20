@@ -25,17 +25,17 @@ All code can be run through "scripts/meta_analysis_script.m", which contains 5 s
     - Output file: visually_responsive_spines.mat
 4) Fourth sections runs the code for "create_table_of_all3sessions_function.m" which compiles all the previously analyzed properties of the spines, and runs additional analysis for each spine (i.e correlation to nearest neighbor)
     - Input file: 
-        a) all_analyzed_spines.mat
-        b) visually_responsive_spines.mat
-        c) dendritic_distance.mat: dendritic distance between spines for each FOV and viewing condition (data in "demo_data/2P_data")
+        i) all_analyzed_spines.mat
+        ii) visually_responsive_spines.mat
+        iii) dendritic_distance.mat: dendritic distance between spines for each FOV and viewing condition (data in "demo_data/2P_data")
     - Output files:
-        a) spine_data_table.mat: N*M array, where N represents total number of spines recorded across viewing sessions, dendritic FOVs, neurons, and mice and M represents all the analyzed properties for each spine
-        b) soma_data_table.mat: N*M array, where N represents total number of somas recorded across viewing sessions, neurons, and mice and M represents all the analyzed properties for each soma
+        i) spine_data_table.mat: N*M array, where N represents total number of spines recorded across viewing sessions, dendritic FOVs, neurons, and mice and M represents all the analyzed properties for each spine
+        ii) soma_data_table.mat: N*M array, where N represents total number of somas recorded across viewing sessions, neurons, and mice and M represents all the analyzed properties for each soma
 5) Fifth section runs the code for "create_table_tracked_spines_function" for spines that were tracked from D1 to D5 or D5 to D10 to combine analyzed properties from the tracked spine from the first and second timepoint into a single data table
     - Input file: 
-      a) spine_data_table.mat
-      b) variable "modify_mat" from alignment_based_on_fiducial.mat, which is a Nx2 array, providi the ROI identity of the tracked spine on timepoint 1 (first column) and 2 (second column). Spines that were missing on 1st or 2nd timepoint are labeled as 0, and spines that had unknown identity were labeled as -1
-      - Output file: tracked_spines.mat, which has two variables that are N*2 arrays where N is the total number of spines, and the first column is data from D1 (or D5) and second column is data from D5 (or D10)
+      i) spine_data_table.mat
+      ii) variable "modify_mat" from alignment_based_on_fiducial.mat, which is a Nx2 array, providi the ROI identity of the tracked spine on timepoint 1 (first column) and 2 (second column). Spines that were missing on 1st or 2nd timepoint are labeled as 0, and spines that had unknown identity were labeled as -1
+  - Output file: tracked_spines.mat, which has two variables that are N*2 arrays where N is the total number of spines, and the first column is data from D1 (or D5) and second column is data from D5 (or D10)
       
         
        
