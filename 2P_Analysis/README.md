@@ -23,7 +23,7 @@ Before running the code, be sure to change the following paths to your home dire
 ##### Output files: For each FOV, day, and viewing condition there will be two files: 
 1. normalized_data_by_stim.mat (analyzed flourescent properties) 
 2. mean_amp_ori_analysis.mat (orientation tuning properties for FOV)
-#####Runtime: ~ 1 minute on all data in "demo_data/2P_data" folder
+##### Runtime: ~ 1 minute on all data in "demo_data/2P_data" folder
 
 #### Section 2
 Second section runs the code for "analyzed_processed_data_function.m", which compiles the analyzed properties for each ROI across FOVs and viewing conditions into a 1x3 array of structures

@@ -1,16 +1,24 @@
 %% Run FOV alignment between each dendritic segment 
+% Script runs the code for tracking spines across two timepoints based on
+% the distance of spines to fiducials along the dendrite
+% Input file: all .csvs under dendritic distance folder
+
+%% Set path 
 close all 
 clear all
+
+% Set thresholds
 thresh_um = 1;
 run_gui = 1;
 
-
-mouse_path = '/Users/ktsimring/Dropbox (MIT)/Sur Lab/Projects/Development project/Binocular Matching/Spine imaging/Chronic Imaging/FOV_alignment';
-mouse_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/FOV_alignment/to_do/';
-mouse_path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/FOV_alignment/to_do/'
+homepath = '/Users/ktsimring/Documents/'; % change this path
+path = '/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/FOV alignment/';
+mouse_path = fullfile(homepath, path, 'demo_data', 'input_data')
 mice = dir(mouse_path);
 mice = mice(~ismember({mice.name},{'.','..', '.DS_Store', 'ReadMe.txt'}));
 
+
+%% Run for all mice
 for m = 1:length(mice)
     is_blinded = 0;
     cells = dir(fullfile(mice(m).folder, mice(m).name));
@@ -23,8 +31,8 @@ for m = 1:length(mice)
        
     end
 
-    for c = 3:length(cells)
-        if contains(cells(c).name, 'Cell')
+    for c = 1:length(cells)
+        if contains(cells(c).name, 'Neuron')
         disp(cells(c).name)
         days = dir(fullfile(cells(c).folder, cells(c).name));
         days = days(~ismember({days.name},{'.','..', '.DS_Store'}));
@@ -106,7 +114,7 @@ for m = 1:length(mice)
                            fov2_path = fullfile(days(d+1).folder, days(d+1).name,...
                        unique_FOV{s});
                            roi_file = unique_seg{ss};
-                           ref_file = [unique_FOV{s}, '.tif'];
+                           ref_file = ['mean_intensity_projection.tif'];
                            modify_mat = runGUI(savepath, fov1_path,fov2_path, roi_file, ref_file, fid1, fid2, squeeze_mat);
                        else
                            modify_mat = [];
