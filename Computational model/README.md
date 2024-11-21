@@ -10,4 +10,4 @@ The script fig7C_D_E.m can be used to reproduce panel C, D, and E in figure 7.
 
 Figure 7F can be reproduced together with Figure S8 through the script figS8.m in the following way: first, choose the parameters that determine the heterosynaptic and the Hebbian factors (sigma_het, sigma_heb, in the script main.m ). Run the main.m for each choice of (sigma_het, sigma_heb). Load the results in figS8.m and find average spine pair correlation and average mismatch in the somatic response for the given values of (sigma_het, sigma_heb) and multiple trials. 
 
-The files preferred_orientation.m and testing.m are functions to determine the soma’s preferred orientation and the somatic response for eight possible directions when plasticity is turned off, and they are used in the script figS8.m 
+The files preferred_orientation.m and test.m are functions to determine the soma’s preferred orientation and the somatic response for eight possible directions when plasticity is turned off, and they are used in the script figS8.m 
