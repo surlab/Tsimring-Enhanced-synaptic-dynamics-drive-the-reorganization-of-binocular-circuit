@@ -2,6 +2,7 @@ The code was written in Matlab 2023b. It should work with other versions as well
 
 The figure 7 can be reproduced by simply running the script main.m on Matlab - results may slightly differ due to randomness.
 Change the parameters ntrials (default = 20) to have different number of trials.
+Each trial should take about 25-30 minutes to run.
 Change sigma_het (default = 1.5) and sigma_heb (default = 15) to vary the heterosynaptic and the Hebbian factor, respectively. 
 All the other parameters are as defined in the main paper. The code automatically saves the output for each trial in a .mat file, that can be then used to plot the results as follows. 
 
