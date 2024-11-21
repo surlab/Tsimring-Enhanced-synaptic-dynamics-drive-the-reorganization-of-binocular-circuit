@@ -19,17 +19,12 @@ for indtime = 1:length(mytimes)
     fr_abs = [fr_I; fr_C; fr_all];
     fr = fr_abs./(max(fr_abs,[],2)); 
 
-    oris_rad = (lin_angles'.*pi)./180; % column vector
-    num _oris = length(oris_rad)/2;
-    oris_rad_half = oris_rad(1:num_oris);
-    mean_data_half = (fr(:,1:num_oris) + fr(:,num_oris+1:end))/2;
-    R_ori = mean_data_half*exp(oris_rad_half*2*1i);
-    Ori_pref = mod(atan2(imag(R_ori),real(R_ori)),2*pi)*(90/pi);
-    
+    oripref = preferred_orientation(lin_angles, fr);
+
     % Plot somatic response 
     figure() 
     for i = 1:3 % three types of view
-        polarplot([0 2*deg2rad(Ori_pref(i))],[0 100],'LineWidth',3)
+        polarplot([0 2*deg2rad(oripref(i))],[0 100],'LineWidth',3)
         hold on
     end
     thetaticks([0 90 180 270])
