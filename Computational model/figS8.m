@@ -39,9 +39,9 @@ for trial= 1:ntrials
         test_zVM = [saving_zVM{1}(timepoint, :); saving_zVM{2}(timepoint, :)];
 
          % test viewing
-        [ipsi_left,ipsi_right,soma_ipsi] = testing(1,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Ipsi viewing
-        [contra_left,contra_right,soma_contra] = testing(2,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Contra viewing
-        [bino_left,bino_right,soma_bino] = testing(3,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Binocular viewing
+        [ipsi_left,ipsi_right,soma_ipsi] = test(1,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Ipsi viewing
+        [contra_left,contra_right,soma_contra] = test(2,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Contra viewing
+        [bino_left,bino_right,soma_bino] = test(3,test_angles,test_W,test_eye,test_ampVM,test_zVM,dMat,dSoma,1,randVM); % Binocular viewing
 
         % Normalize the firing rates
         fr_abs = [soma_ipsi; soma_contra; soma_bino];
