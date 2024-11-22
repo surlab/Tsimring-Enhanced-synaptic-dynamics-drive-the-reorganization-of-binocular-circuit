@@ -1,4 +1,4 @@
-n_ori = 8; lin_angles = linspace(0,360,n_ori+1);lin_angles(end) = []; rad_angles = deg2rad(lin_angles);
+n_ori = 8; lin_angles = linspace(0,360,n_ori+1);lin_angles(end) = [];
 mytimes = [1 500 1000]; % before (1) , during (500), after (1000) plasticity
 trial = 1;
 load(['main' num2str(trial) '.mat']);
