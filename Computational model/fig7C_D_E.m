@@ -9,9 +9,6 @@ activity_retained =[];
 spinesomacorr = [];
 lost_pertrial = cell(1,ntrials);
 retained_pertrial = cell(1,ntrials);
-T = 1.9e+7;
-
-time_indices1 = round(linspace(1, T,1000));
 
 for trial = 1:ntrials
     load(['main' num2str(trial) '.mat'])    
