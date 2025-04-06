@@ -136,10 +136,10 @@ end
 clear all 
 close all
 % load spine table across neurons and days and sessions
-home_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/';
-path_dir = 'Sur Lab/Development project/Binocular_Matching/Spine_imaging/Analyzed Data/';
-spine_file = 'spine_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials.mat';
-soma_file = 'soma_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials.mat';
+home_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/';  %update this path for where data will be stored
+path_dir = 'Sur Lab/Development project/Binocular_Matching/Spine_imaging/Analyzed Data/'; %update this path for where data will be stored
+spine_file = 'spine_properties_table.mat';
+soma_file = 'soma_properties_table.mat';
 filepath = fullfile(home_path, path_dir,spine_file);
 load(filepath);
 filepath = fullfile(home_path, path_dir,soma_file);

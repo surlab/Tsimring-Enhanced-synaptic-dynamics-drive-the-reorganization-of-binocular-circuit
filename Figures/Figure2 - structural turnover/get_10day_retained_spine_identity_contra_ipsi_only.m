@@ -56,7 +56,7 @@ for i = 1:length(all_temps)
         %extract each session and then combine
     features = {d1_var,d5_var,'roi_fovs_mouse_cell'};
     join_key = 'roi_fovs_mouse_cell';
-    contra_ipsi = concate_contra_ipsi_binoc(temp, features, join_key);
+    contra_ipsi = concate_contra_ipsi_binoc(temp, features, join_key,1);
      
 
     d1_contra = strcat(d1, '_resp_contra');

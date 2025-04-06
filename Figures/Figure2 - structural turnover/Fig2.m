@@ -11,8 +11,7 @@
 %% Load data 
 clear all
 chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/'; %update this path for where data will be stored
-%chronic_path ='G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-load(fullfile(chronic_path,"tracked_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_D1_D5_D10_lax_criteria_spine_area_dend_type_soma_props_trial_data.mat") );
+load(fullfile(chronic_path,"tracked_spines_properties_table.mat") );
 
 vars = {'D1','session', 'all_mice_cells', 'all_fovs', 'structure_type'};
 retain_vs_lost_D1_D5 = D1_D5_table(contains(D1_D5_table.structure_type, 'lost')|contains(D1_D5_table.structure_type, 'retained'),vars);
@@ -60,9 +59,8 @@ get_fraction_retained_eye_preference_by_cell(all_temps)
 %% Panel E-F (left): Load data and combine D1 to D5 and D5 to D10 table for retained spines
 clear all
 close all
-chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-%chronic_path ='G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-load(fullfile(chronic_path,"tracked_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_D1_D5_D10_lax_criteria_spine_area_dend_type_soma_props_trial_data.mat") );
+chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/'; %update this path for where data will be stored
+load(fullfile(chronic_path,"tracked_spines_properties_table.mat") );
 
 vars = {'D1','D5','session', 'all_mice_cells', 'all_fovs', 'structure_type'};
 retain_D1_D5 = D1_D5_table(contains(D1_D5_table.structure_type, 'retained'),vars);
@@ -86,7 +84,8 @@ all_counts = get_10day_retained_spine_identity_both_eyes(retain_D1_D5, retain_D5
 
 %% Panel E-F (right): get eye-specific identities of neurons tracked from D1 to D10
 path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Analyzed Data/';
-file = 'soma_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials.mat';
+path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'
+file = 'soma_properties_table.mat';
 load(fullfile(path,file))
 vars = {'resp', 'days', 'session', 'mouse_cell'}
 D1_table = all_soma_stim_table(strcmp(all_soma_stim_table.days, 'D1'),vars);
