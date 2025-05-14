@@ -7,7 +7,12 @@ data(row)(column)_(trial_range).zip --> if unzip, data(row)(column)_(trial_index
 
 Example:
 
-data12_01-04.zip contains .mat files for trials 1, 2, 3, 4, for the row = 1 and the column = 2. data12_1.mat is the trial #1 for the row = 1, column = 2.
+data12_01-04.zip contains .mat files for trials 1, 2, 3, 4, for the row = 1 and the column = 2. 
+
+data12_1.mat is the trial #1 for the row = 1, column = 2.
+
+
+More details: 
 
 There are 20 trials for each row and column. 
 
@@ -22,4 +27,5 @@ Col = 1 corresponds to sigma_Heb = 0
 Col = 2 corresponds to sigma_Heb = 1.5
 Col = 3 corresponds to sigma_Heb = 5
 
+How to proceed:
 Please unzip the folders, and use the script figS8.m in the folder 'Computational Model' to reproduce the results of FigS8. The results could differ slightly due to the 'test.m' function. 
