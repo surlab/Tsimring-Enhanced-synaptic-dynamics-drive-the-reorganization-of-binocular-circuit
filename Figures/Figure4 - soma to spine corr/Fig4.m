@@ -9,9 +9,8 @@
 plot_active_trials_soma_spine
 %% Panel B&E: load data 
 clear all
-chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/'; %update this path for where data will be stored
-%chronic_path ='G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-load(fullfile(chronic_path,"tracked_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_D1_D5_D10_lax_criteria_spine_area_dend_type_soma_props_trial_data.mat") );
+chronic_path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
+load(fullfile(chronic_path,"tracked_spines_properties_table.mat") );
 
 vars = {'D1','session', 'all_mice_cells', 'all_fovs', 'structure_type'};
 retain_vs_lost_D1_D5 = D1_D5_table(contains(D1_D5_table.structure_type, 'lost')|contains(D1_D5_table.structure_type, 'retained'),vars);
@@ -222,5 +221,5 @@ for i = 1:length(all_temps)
 end
 figure(g)
 title('Preferred direction')
-figure(g)
+figure(h)
 title('Orthogonal directions')

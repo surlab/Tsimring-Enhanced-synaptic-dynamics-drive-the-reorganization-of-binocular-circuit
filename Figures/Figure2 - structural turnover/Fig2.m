@@ -10,7 +10,7 @@
 
 %% Load data 
 clear all
-chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/'; %update this path for where data will be stored
+chronic_path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
 load(fullfile(chronic_path,"tracked_spines_properties_table.mat") );
 
 vars = {'D1','session', 'all_mice_cells', 'all_fovs', 'structure_type'};
@@ -59,7 +59,7 @@ get_fraction_retained_eye_preference_by_cell(all_temps)
 %% Panel E-F (left): Load data and combine D1 to D5 and D5 to D10 table for retained spines
 clear all
 close all
-chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/'; %update this path for where data will be stored
+chronic_path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
 load(fullfile(chronic_path,"tracked_spines_properties_table.mat") );
 
 vars = {'D1','D5','session', 'all_mice_cells', 'all_fovs', 'structure_type'};
@@ -83,8 +83,7 @@ all_counts = get_10day_retained_spine_identity_contra_ipsi_only(retain_D1_D5, re
 all_counts = get_10day_retained_spine_identity_both_eyes(retain_D1_D5, retain_D5_D10, mice_cells_D1_D10);
 
 %% Panel E-F (right): get eye-specific identities of neurons tracked from D1 to D10
-path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Analyzed Data/';
-path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'
+path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
 file = 'soma_properties_table.mat';
 load(fullfile(path,file))
 vars = {'resp', 'days', 'session', 'mouse_cell'}
@@ -101,12 +100,8 @@ all_counts = get_10day_soma_identity_contra_ipsi(data, unique_mouse_cell_D1_D10)
 all_counts = get_10day_soma_identity_both_eyes(data, unique_mouse_cell_D1_D10);
 %% Panel G: fraction of spines that match the soma's pref 
 % load data
-path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/';
-%path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/';
-savepath = fullfile(path, 'Analyzed Data');
-
-distance_path = fullfile(path, 'Chronic Imaging/FOV_alignment/');
-load(fullfile(savepath, "spine_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials.mat"), "all_stim_table");
+path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
+load(fullfile(path, "spine_properties_table.mat"), "all_stim_table");
 all_stim_table.roi_fovs_mouse_cell_days = strcat(num2str(all_stim_table.all_roi_inds), '_',...
                                                 all_stim_table.mouse_cell, '_',...
                                                 all_stim_table.all_fovs, '_',...

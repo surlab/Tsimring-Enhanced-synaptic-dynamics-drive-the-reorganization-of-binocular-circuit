@@ -70,10 +70,8 @@ end
 
 
 %% Panel C: load data
-chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/'; %update this path for where data will be stored
-%load(fullfile(chronic_path,"tracked_spines_14_15_16_17_19_20_21_23_D1_D5_D10_lax_criteria.mat") );
-%chronic_path ='G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-load(fullfile(chronic_path,"tracked_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_D1_D5_D10_lax_criteria_spine_area_dend_type_soma_props_trial_data.mat") );
+chronic_path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
+load(fullfile(chronic_path,"tracked_spines_properties_table.mat") );
 
 vars = {'D1','session', 'all_mice_cells', 'all_fovs', 'structure_type'};
 retain_vs_lost_D1_D5 = D1_D5_table(contains(D1_D5_table.structure_type, 'lost')|contains(D1_D5_table.structure_type, 'retained'),vars);
@@ -135,7 +133,7 @@ unresp_data_feature_not_retained = [];
 unresp_data_feature_retained = [];
 feature = 'all_z_scored_trace';
 resp_type = ['000'];
-
+use_log = 0;
 for i = 1:length(data)
     temp = data{i};
     temp.roi_fovs_mouse_cell = strcat(num2str(temp.all_roi_inds),'_', temp.all_fovs, '_', temp.all_mice_cells);
@@ -181,11 +179,9 @@ figure("Position",[345,394,290,190])
 plot_bar_lost_added_retained(unresp_data_feature_not_retained,unresp_data_feature_retained, [0, 0.025],'Calcium Event Rate (Hz)');
 
 %% Panel D,G: load population data and get ca activity of spines by day
-path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/';
-%path = 'G:/My Drive/';
 
-savepath = fullfile(path, 'Sur Lab/Development project/Binocular_Matching/Spine_imaging/Analyzed Data'); %update this path for where data will be stored
-load(fullfile(savepath,'spine_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials'));
+savepath = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files'; %update this path for where data will be stored
+load(fullfile(savepath,'spine_properties_table.mat'));
 all_stim_table.roi_fovs_mouse_cell_days = strcat(num2str(all_stim_table.all_roi_inds), '_', ...
                                                 all_stim_table.mouse_cell, '_',...
                                                 all_stim_table.all_fovs, '_',...

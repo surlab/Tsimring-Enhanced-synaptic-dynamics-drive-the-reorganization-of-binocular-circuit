@@ -136,8 +136,8 @@ end
 clear all 
 close all
 % load spine table across neurons and days and sessions
-home_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/';  %update this path for where data will be stored
-path_dir = 'Sur Lab/Development project/Binocular_Matching/Spine_imaging/Analyzed Data/'; %update this path for where data will be stored
+home_path = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files';  %update this path for where data will be stored
+path_dir = ''; %update this path for where data will be stored
 spine_file = 'spine_properties_table.mat';
 soma_file = 'soma_properties_table.mat';
 filepath = fullfile(home_path, path_dir,spine_file);

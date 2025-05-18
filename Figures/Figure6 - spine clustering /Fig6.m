@@ -11,12 +11,9 @@
 
 %% Panel B&C: Load data
 clear all
-path = 'G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/';%update this path for where data will be stored
-path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/';
-
-savepath = fullfile(path, 'Analyzed Data');
-distance_path = fullfile(path, 'Chronic Imaging/FOV_alignment/');
-load(fullfile(savepath, "spine_mean_tuning_table_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_lax_criteria_zscored_trace_active_trials.mat"), "all_stim_table");
+savepath = '/Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files/';%update this path for where data will be stored
+distance_path = fullfile(path, 'Chronic Imaging/FOV_alignment/'); %update this path for where data will be stored
+load(fullfile(savepath, "spine_properties_table.mat"), "all_stim_table");
 
 % merge table into contra and ipsi session per spine
 all_stim_table.roi_fovs_mouse_cell_days = strcat(num2str(all_stim_table.all_roi_inds), '_', ...
@@ -174,9 +171,8 @@ for i = 1:length(all_mouse_cell_by_session)
 end
 %% Panel D: load data
 clear all
-chronic_path = '/Volumes/GoogleDrive-108846495442099470486/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-%chronic_path ='G:/My Drive/Sur Lab/Development project/Binocular_Matching/Spine_imaging/Chronic Imaging/';
-load(fullfile(chronic_path,"tracked_spines_BM014_15_16_17_19_18_20_21_23_24_25_26_27_29_30_D1_D5_D10_lax_criteria_spine_area_dend_type_soma_props_trial_data.mat") );
+chronic_path = '//Users/ktsimring/Documents/GitHub/Tsimring-Enhanced-synaptic-dynamics-drive-the-reorganization-of-binocular-circuit/Mat Files';
+load(fullfile(chronic_path,"tracked_spines_properties_table.mat"));
 
 %% Panel D: Plot corr to nearest spine neighbor for retained spines
 % Obtain retained spines
